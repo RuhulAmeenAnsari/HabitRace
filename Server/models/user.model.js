@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
 const userSchema = mongoose.Schema({
-    name :{
+    username :{
         type:String,
         required:true,
     },
@@ -34,5 +34,4 @@ userSchema.statics.hashPassword = async function(password){
     return hashedPassword
 }
 
-
-module.exports = mongoose.model('User',userSchema)
+module.exports = mongoose.models.user || mongoose.model('user', userSchema);

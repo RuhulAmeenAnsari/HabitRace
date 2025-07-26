@@ -10,7 +10,7 @@ module.exports.registerUser = async (req, res, next) => {
         return res.status(400).json({ errors: errors.array() })
     }
 
-    const { name, email, password } = req.body
+    const { username, email, password } = req.body
 
     const isUserAlreadyExists = await userModel.findOne({ email })
     if (isUserAlreadyExists) {
@@ -18,7 +18,7 @@ module.exports.registerUser = async (req, res, next) => {
     }
     const hashedPassword = await userModel.hashPassword(password)
     const user =await userService.createUser({
-        name,
+        username,
         email,
         password:hashedPassword
     })
@@ -54,3 +54,8 @@ module.exports.logInUser = async (req,res,next)=>{
     res.cookie('token',token)
     res.status(200).json({user,token})
 }
+
+module.exports.userProfile = async(req,res,next )=>{
+    res.status(200).json({user:req.user})
+}
+
