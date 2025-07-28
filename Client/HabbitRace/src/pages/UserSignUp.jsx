@@ -21,15 +21,13 @@ const UserSignUp = () => {
         password:password
     }
     try {
-        const response = await axios.post('http://localhost:4000/user/register',newuserData)
+        const response = await axios.post(`http://localhost:4000/user/register`,newuserData)
         if(response.status==201){
 
             const data = response.data
             setuser(data.user)
             localStorage.setItem('token',data.token)
             navigate('/home')
-
-
         }
     } catch (error) {
         if(error.response && error.response.status === 401){
