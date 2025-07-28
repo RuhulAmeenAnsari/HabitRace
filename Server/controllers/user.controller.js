@@ -40,7 +40,7 @@ module.exports.logInUser = async (req, res, next) => {
 
     const { email, password } = req.body;
 
-    const user = await userModel.findOne({ email })
+    const user = await userModel.findOne({ email }).select('+password')
     if (!user) {
         return res.status(401).json({ message: 'something went wrong' })
     }

@@ -15,6 +15,7 @@ const userSchema = mongoose.Schema({
     password:{
         type:String,
         required:true,
+        select : false,
         min:[5,'password must be of 5 or more charcters']
     }
 },{timestamps:true})
