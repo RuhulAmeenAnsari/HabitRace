@@ -27,7 +27,7 @@ const JoinHabbits = () => {
   const handleJoin = async (habitId) => {
     try {
       const res = await axios.post(
-        `http://localhost:4000/habit/join/${habitId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/habit/join/${habitId}`,
         {},
         {
           headers: {

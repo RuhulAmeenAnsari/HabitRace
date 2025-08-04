@@ -21,7 +21,7 @@ const UserSignUp = () => {
         password:password
     }
     try {
-        const response = await axios.post(`http://localhost:4000/user/register`,newuserData)
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/register`,newuserData)
         if(response.status==201){
 
             const data = response.data

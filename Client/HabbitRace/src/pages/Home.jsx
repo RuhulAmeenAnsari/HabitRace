@@ -28,7 +28,7 @@ const Home = () => {
       }
     );
 
-    const response = await axios.get("http://localhost:4000/user/me", {
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/me`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -38,7 +38,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/user/me", {
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log(res.data);
