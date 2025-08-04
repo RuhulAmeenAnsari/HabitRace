@@ -20,6 +20,8 @@ router.post('/login',[
 
 router.get('/profile',authMiddleware.authUserMiddleware,userController.userProfile)
 
+router.get('/me',authMiddleware.authUserMiddleware,userController.profile)
+
 
 
 module.exports = router

@@ -24,6 +24,9 @@ module.exports.createHabitController = async (req, res) => {
             userId
         })
 
+        habit.participants.push({userId:req.userId})
+        await habit.save()
+        
         return res.status(201).json({
             message: 'habbit created successfully',
             habit
@@ -121,4 +124,49 @@ module.exports.deleteHabit = async (req,res)=>{
     catch(err){
         res.status(500).json({err : err.message})
     }
+}
+
+module.exports.habitComplete = async (req,res)=>{
+
+    const userId = req.userId
+    const habitId = req.params.habitId 
+
+    try{
+
+        const habit = await HabitModel.findById(habitId)
+        if(!habit){
+            return res.status(404).json({message:"Habit not Found"})
+        }
+
+        const participant = habit.participants.find(p=>p.userId.toString() === userId)
+        if(!participant) {
+            return res.status(403).json({message:'You are not a Participant'})
+        }
+
+        const today = new Date().toDateString()
+        const lastcompleted = new Date(participant.LastCompleted).toDateString()
+
+        if(today === lastcompleted && participant.streak > 0){
+            return res.status(400).json({message : 'Already marked completed for today'})
+        }
+
+        const yesterday = new Date()
+        yesterday.setDate(yesterday.getDate()-1)
+
+        const isYesterday = new Date(participant.LastCompleted).toDateString() === yesterday.toDateString()
+
+        participant.streakCount = isYesterday ? participant.streakCount + 1 : 1
+        participant.LastCompleted = new Date()
+
+        await habit.save()
+        res.json({message : 'Habit mark as Completed' , streak : participant.streakCount})
+
+
+
+    }catch(err){
+        return res.status(500).json({message : err.message})
+    }
+
+
+
 }

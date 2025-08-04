@@ -1,6 +1,7 @@
 const userService = require('../services/user.service')
 const userModel = require('../models/User.model')
 const { validationResult } = require('express-validator')
+const HabitModel = require('../models/habbit.model')
 
 
 module.exports.registerUser = async (req, res, next) => {
@@ -59,3 +60,30 @@ module.exports.userProfile = async (req, res, next) => {
     res.status(200).json({ user: req.user })
 }
 
+module.exports.profile = async (req,res)=>{
+
+    try {
+        
+        const user = await userModel.findById(req.userId).select('-password')
+        const habits = await HabitModel.find({'participants.userId' : req.userId})
+
+        const joinedHabit = habits.map(habit =>{
+            const p =  habit.participants.find(p=>p.userId.toString()===req.userId)
+            return{
+                habitId : habit._id,
+                habitTitle : habit.title,
+                habitDescription : habit.description,
+                streak : p?.streakCount,
+                LastCompleted : p?.LastCompleted
+            }
+        })
+     
+
+        res.status(200).json({user , joinedHabit})
+    
+
+    } catch (error) {
+        res.status(500).json({message:'Failed to Load Profile'})
+    }
+
+}

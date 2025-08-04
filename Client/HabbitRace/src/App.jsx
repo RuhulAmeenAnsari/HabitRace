@@ -5,6 +5,8 @@ import UserSignUp from './pages/UserSignUp'
 import UserLogin from './pages/UserLogin'
 import Home from './pages/Home'
 import UserProtectedWrapper from './pages/UserProtectedWrapper'
+import CreateHabit from './pages/CreateHabit'
+import JoinHabbits from './pages/JoinHabbits'
 
 const App = () => {
   return (
@@ -15,6 +17,8 @@ const App = () => {
     <Route path='/user-signUp' element={<UserSignUp/>}></Route>
     <Route path='/user-login' element={<UserLogin/>}></Route>
     <Route path='/home' element={<UserProtectedWrapper><Home/></UserProtectedWrapper>}></Route>
+    <Route path='/habit/create' element={<UserProtectedWrapper><CreateHabit/></UserProtectedWrapper>}></Route>
+    <Route path='/habit/join' element={<UserProtectedWrapper><JoinHabbits/></UserProtectedWrapper>}></Route>
 
   </Routes>
   </>
