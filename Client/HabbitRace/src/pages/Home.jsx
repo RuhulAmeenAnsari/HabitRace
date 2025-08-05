@@ -41,7 +41,7 @@ const Home = () => {
         const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(res.data);
+
         setProfile(res.data);
       } catch (err) {
         console.error("Error fetching profile:", err.message);

@@ -74,7 +74,8 @@ module.exports.profile = async (req,res)=>{
                 habitTitle : habit.title,
                 habitDescription : habit.description,
                 streak : p?.streakCount,
-                LastCompleted : p?.LastCompleted
+                LastCompleted : p?.LastCompleted,
+                createdBy : habit.createdBy
             }
         })
      

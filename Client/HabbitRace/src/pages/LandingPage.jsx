@@ -1,6 +1,7 @@
 import React from "react";
 
 const LandingPage = () => {
+  
   return (
     <div className="min-h-screen bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 flex flex-col items-center justify-center px-6 text-white font-sans">
       <h1 className="text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-lg text-center">

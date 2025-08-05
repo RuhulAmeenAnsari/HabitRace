@@ -15,7 +15,7 @@ const UserProtectedWrapper = ({ children }) => {
     }
 
     axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/user/profile`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/user/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -23,7 +23,7 @@ const UserProtectedWrapper = ({ children }) => {
       .then((response) => {
         if (response.status == 200) {
           const data = response.data;
-          setuser(data.user);
+          setuser(data);
           setisLoading(false);
         }
       })
@@ -31,7 +31,7 @@ const UserProtectedWrapper = ({ children }) => {
         localStorage.removeItem("token");
         navigate("/user-login");
       });
-  }, [token]);
+  }, [token ]);
 
   if (isLoading) {
     return (

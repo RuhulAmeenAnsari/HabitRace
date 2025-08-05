@@ -19,6 +19,6 @@ module.exports.authUserMiddleware = async (req, res, next) => {
         return next()
     }
     catch (error) {
-        return res.status(401).json({ message: "unauthorized access 3" })
+        return res.status(401).json({ message: "unauthorized access 3",error })
     }
 }
