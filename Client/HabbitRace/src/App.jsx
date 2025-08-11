@@ -8,6 +8,7 @@ import UserProtectedWrapper from './pages/UserProtectedWrapper'
 import CreateHabit from './pages/CreateHabit'
 import JoinHabbits from './pages/JoinHabbits'
 import Profile from './pages/Profile'
+import LeaderBoard from './pages/LeaderBoard'
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
     <Route path='/profile' element={<UserProtectedWrapper><Profile/></UserProtectedWrapper>}></Route>
     <Route path='/habit/create' element={<UserProtectedWrapper><CreateHabit/></UserProtectedWrapper>}></Route>
     <Route path='/habit/join' element={<UserProtectedWrapper><JoinHabbits/></UserProtectedWrapper>}></Route>
+    <Route path='/leaderboard' element={<UserProtectedWrapper><LeaderBoard/></UserProtectedWrapper>}></Route>
 
   </Routes>
   </>

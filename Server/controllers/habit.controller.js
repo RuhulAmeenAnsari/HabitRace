@@ -1,6 +1,7 @@
 
 const habitService = require('../services/habit.service')
-const HabitModel = require('../models/habbit.model')
+const HabitModel = require('../models/habbit.model');
+const UserModel = require('../models/User.model');
 
 module.exports.createHabitController = async (req, res) => {
 
@@ -169,4 +170,30 @@ module.exports.habitComplete = async (req,res)=>{
 
 
 
+}
+
+
+module.exports.leaderboard = async(req,res)=>{
+
+    const habits = await HabitModel.find()
+    const userScores = {}
+
+    habits.forEach(habit => {
+        habit.participants.forEach((p)=>{
+            const userId = p.userId.toString()
+            if(!userScores[userId]) userScores[userId] = 0
+            userScores[userId] += p.streakCount
+        })
+    });
+
+    const user = await UserModel.find({_id:{$in : Object.keys(userScores)}})
+
+    console.log(user);
+
+    const leaderboard = user.map((user)=>({
+        name : user.username,
+        totalStreak : userScores[user._id.toString()]
+    })).sort((a,b)=>b.totalStreak-a.totalStreak)
+
+res.json(leaderboard)
 }
